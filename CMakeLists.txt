@@ -14,17 +14,15 @@ if(WIN32)
 	set(OGRE_HOME $ENV{OGRE_HOME})
 	set(CMAKE_MODULE_PATH "${OGRE_HOME}/CMake/;${CMAKE_MODULE_PATH}")
 	set(BOOST_ROOT "${OGRE_HOME}/boost_1_42")
-	if(CMAKE_BUILD_TYPE MATCHES Debug)
-	set(OGRE_PLUGIN_DIR "${OGRE_PLUGIN_DIR_DBG}")
-	else()
-	set(OGRE_PLUGIN_DIR "${OGRE_PLUGIN_DIR_REL}")
-	endif()
-
 endif(WIN32)
 
 if(UNIX)
 	set(CMAKE_MODULE_PATH "/usr/local/lib/OGRE/cmake/;${CMAKE_MODULEPATH}")
-	set(OGRE_PLUGIN_DIR "/usr/local/lib/OGRE/")
+	
+	#work around windows needing to diffentiate between debug and release
+	#and FindOGRE not populating these anyway.
+	set(OGRE_PLUGIN_DIR_REL "/usr/local/lib/OGRE/")
+	set(OGRE_PLUGIN_DIR_DBG "/usr/local/lib/OGRE/")
 endif(UNIX)
 
 # Find Boost
