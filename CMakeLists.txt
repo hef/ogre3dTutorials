@@ -13,8 +13,13 @@ INCLUDE(ExternalProject)
 if(WIN32)
 	set(OGRE_HOME $ENV{OGRE_HOME})
 	set(CMAKE_MODULE_PATH "${OGRE_HOME}/CMake/;${CMAKE_MODULE_PATH}")
-	set(OGRE_PLUGIN_DIR "${OGRE_PLUGIN_DIR_REL}") #who needs debug ogre anyway?
 	set(BOOST_ROOT "${OGRE_HOME}/boost_1_42")
+	if(CMAKE_BUILD_TYPE MATCHES Debug)
+	set(OGRE_PLUGIN_DIR "${OGRE_PLUGIN_DIR_DBG}")
+	else()
+	set(OGRE_PLUGIN_DIR "${OGRE_PLUGIN_DIR_REL}")
+	endif()
+
 endif(WIN32)
 
 if(UNIX)
